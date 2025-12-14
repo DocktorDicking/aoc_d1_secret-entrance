@@ -2,7 +2,7 @@ namespace Aoc;
 
 public class CombinationSafe : ICombinationSafe
 {
-    private CombinationDial _dial;
+    private readonly CombinationDial _dial;
     private readonly int _maxValue = 99;
 
     public CombinationSafe()
@@ -12,6 +12,9 @@ public class CombinationSafe : ICombinationSafe
     
     public int TurnCombinationDial(Direction direction, int targetValue)
     {
+        if (targetValue > _maxValue)
+            throw new ArgumentOutOfRangeException(nameof(targetValue), targetValue, $"Target value must be less than or equal to {_maxValue}.");
+        
         return _dial.TurnDialTo(direction, targetValue);
     }
 }
