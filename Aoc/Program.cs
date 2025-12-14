@@ -22,6 +22,8 @@ public sealed class App
 
     public void Run(string[] args)
     {
+        //TODO: I went sideways, we should not get to a target but the R15 means 15 times turn the dial right.
+        
         try
         {
             Console.WriteLine("Starting dial:");
