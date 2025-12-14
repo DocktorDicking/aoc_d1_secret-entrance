@@ -2,14 +2,15 @@ namespace Aoc;
 
 public class CombinationDial : ICombinationDial
 {
-    public int MaxValue { get; set; }
+    public DialEventListner dialEventListner = new();
+    private int MaxValue { get; set; }
     private readonly int _minValue = 0;
     private int _currentValue;
     
-    public CombinationDial(int maxValue)
+    public CombinationDial(int maxValue, int startValue)
     {
         MaxValue = maxValue;
-        _currentValue = 0;
+        _currentValue = startValue;
     }
     
     /**
@@ -26,30 +27,71 @@ public class CombinationDial : ICombinationDial
         }
         
         TurnDial(direction);
+        //TODO: Continue here, need to figure out a logical way to track the turns
+        // dialEventListner.TrackEvent(direction, target, _minValue, MaxValue, _currentValue);
         return TurnDialTo(direction, target);
     }
     
-    private int TurnDial(Direction direction)
+    private void TurnDial(Direction direction)
     {
-        if (direction == Direction.Left)
+        switch (direction)
         {
-            if (_currentValue == 0)
-            {
-                return _currentValue = MaxValue;
-            }
-
-            return _currentValue--;
+            case Direction.Left when _currentValue == 0:
+                _currentValue = MaxValue;
+                return;
+            case Direction.Left:
+                _currentValue--;
+                return;
+            case Direction.Right when _currentValue == MaxValue:
+                _currentValue = _minValue;
+                return;
+            case Direction.Right:
+                _currentValue++;
+                return;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
         }
-        if (direction == Direction.Right)
-        {
-            if (_currentValue == MaxValue)
-            {
-                return _currentValue = _minValue;
-            }
-            
-            return _currentValue++;
-        }
-        
-        throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
     }
+}
+
+public class DialEventListner
+{
+    private List<DialEvent> _eventsList = new();
+
+    public void TrackEvent(Direction direction, int target, int startValue, int endValue, int turns)
+    {
+        _eventsList.Add(
+            new DialEvent
+            {
+                Direction = direction, 
+                Target = target, 
+                StartValue = startValue, 
+                EndValue = endValue, 
+                Turns = turns
+            });
+    }
+
+    public void PrintEvents()
+    {
+        foreach (var dialEvent in _eventsList)
+        {
+            Console.WriteLine($"Turns: {dialEvent.Turns}, Direction: {dialEvent.Direction}, Target: {dialEvent.Target}");
+        }
+    }
+
+    public void PrintPassword()
+    {
+        //TODO: Filter list of events to only have events that passed the 0 at some point.
+        throw new NotImplementedException("Not implemented yet.");
+    }
+
+}
+
+internal class DialEvent
+{
+    public Direction Direction { get; set; }
+    public int Target { get; set; }
+    public int StartValue { get; set; }
+    public int EndValue { get; set; }
+    public int Turns { get; set; }
 }
