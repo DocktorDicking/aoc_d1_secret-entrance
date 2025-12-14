@@ -12,25 +12,30 @@ public class CombinationDial : ICombinationDial
         _currentValue = 0;
     }
     
+    /**
+     * Recursion is not the best way to solve this problem.
+     * Apparently, each recursive call will be a new stack frame (function call + keeping track of the return address).
+     * This is also considered riskier than iterative solutions.
+     * But since this is for fun, recursion goes brrrr.
+     */
     public int TurnDialTo(Direction direction, int target)
     {
-        //TODO: Update this to use value
-        return direction switch
+        if (_currentValue == target)
         {
-            Direction.Left => TurnDial(Direction.Left),
-            Direction.Right => TurnDial(Direction.Right),
-            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
-        };
+            return _currentValue;
+        }
+        
+        TurnDial(direction);
+        return TurnDialTo(direction, target);
     }
     
-    //TODO: This needs to go over each value when doing -- or ++ until it reaches the new direction.
     private int TurnDial(Direction direction)
     {
         if (direction == Direction.Left)
         {
             if (_currentValue == 0)
             {
-                return MaxValue;
+                return _currentValue = MaxValue;
             }
 
             return _currentValue--;
@@ -39,7 +44,7 @@ public class CombinationDial : ICombinationDial
         {
             if (_currentValue == MaxValue)
             {
-                return _minValue;
+                return _currentValue = _minValue;
             }
             
             return _currentValue++;
