@@ -25,9 +25,14 @@ public sealed class App
         try
         {
             Console.WriteLine("Starting dial:");
+            _safe.TurnCombinationDial(Direction.Right, 15);
+            _safe.TurnCombinationDial(Direction.Left, 12);
+            _safe.TurnCombinationDial(Direction.Right, 5);
+
+            var stats = _safe.GetStatistics();
+            foreach (var stat in stats) Console.WriteLine(stat);
             
             //TODO: Introduce a Builder pattern so we can chain all the combinations turns we need.
-            Console.WriteLine(_safe.TurnCombinationDial(Direction.Right, 99));
         }
         catch (Exception e)
         {

@@ -20,9 +20,9 @@ public class CombinationSafe : ICombinationSafe
         return _dial.TurnDialTo(direction, targetValue);
     }
 
-    public int GetStatistics()
-    {
-        return 0;
+    public List<string> GetStatistics()
+    { 
+        return _dial.ReadEvents();
     }
 }
 

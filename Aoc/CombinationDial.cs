@@ -26,10 +26,15 @@ public class CombinationDial : ICombinationDial
             return _currentValue;
         }
         
+        var startValue = _currentValue;
         TurnDial(direction);
-        //TODO: Continue here, need to figure out a logical way to track the turns
-        // dialEventListner.TrackEvent(direction, target, _minValue, MaxValue, _currentValue);
+        dialEventListner.TrackEvent(direction, target, startValue, _currentValue);
         return TurnDialTo(direction, target);
+    }
+
+    public List<string> ReadEvents()
+    {
+        return dialEventListner.PrintEvents();
     }
     
     private void TurnDial(Direction direction)
@@ -58,7 +63,7 @@ public class DialEventListner
 {
     private List<DialEvent> _eventsList = new();
 
-    public void TrackEvent(Direction direction, int target, int startValue, int endValue, int turns)
+    public void TrackEvent(Direction direction, int target, int startValue, int endValue)
     {
         _eventsList.Add(
             new DialEvent
@@ -66,17 +71,20 @@ public class DialEventListner
                 Direction = direction, 
                 Target = target, 
                 StartValue = startValue, 
-                EndValue = endValue, 
-                Turns = turns
+                EndValue = endValue
             });
     }
 
-    public void PrintEvents()
+    public List<string> PrintEvents()
     {
+        var lines = new List<string>(_eventsList.Count);
+
         foreach (var dialEvent in _eventsList)
         {
-            Console.WriteLine($"Turns: {dialEvent.Turns}, Direction: {dialEvent.Direction}, Target: {dialEvent.Target}");
+            lines.Add($"Direction: {dialEvent.Direction}, Target: {dialEvent.Target}, StartValue: {dialEvent.StartValue}, EndValue: {dialEvent.EndValue}");
         }
+
+        return lines;
     }
 
     public void PrintPassword()
