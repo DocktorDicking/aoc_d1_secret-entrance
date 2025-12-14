@@ -1,6 +1,6 @@
 namespace Aoc;
 
-public class CombinationDial
+public class CombinationDial : ICombinationDial
 {
     public int MaxValue { get; set; }
     private readonly int _minValue = 0;
@@ -45,5 +45,3 @@ public class CombinationDial
         throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
     }
 }
-
-public enum Direction { Left, Right }
