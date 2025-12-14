@@ -25,13 +25,14 @@ public sealed class App
         try
         {
             Console.WriteLine("Starting dial:");
-            Console.WriteLine(_safe.TurnCombinationDial(Direction.Right, 100));
+            
+            //TODO: Introduce a Builder pattern so we can chain all the combinations turns we need.
+            Console.WriteLine(_safe.TurnCombinationDial(Direction.Right, 99));
         }
         catch (Exception e)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Exception thrown and caught: ");
-            Console.WriteLine(e);
+            Console.WriteLine("Exception thrown and caught: {0}", e);
         }
     }
 }
