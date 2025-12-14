@@ -12,16 +12,19 @@ public class CombinationDial : ICombinationDial
         _currentValue = 0;
     }
     
-    public int GetNextValue(Direction direction)
+    public int TurnDialTo(Direction direction, int target)
     {
+        //TODO: Update this to use value
         return direction switch
         {
-            Direction.Left => UpdateValue(Direction.Left),
-            Direction.Right => UpdateValue(Direction.Right),
+            Direction.Left => TurnDial(Direction.Left),
+            Direction.Right => TurnDial(Direction.Right),
             _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
         };
     }
-    private int UpdateValue(Direction direction)
+    
+    //TODO: This needs to go over each value when doing -- or ++ until it reaches the new direction.
+    private int TurnDial(Direction direction)
     {
         if (direction == Direction.Left)
         {

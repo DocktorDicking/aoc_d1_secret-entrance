@@ -2,5 +2,5 @@ namespace Aoc;
 
 public interface ICombinationDial
 {
-    public int GetNextValue(Direction direction);
+    public int TurnDialTo(Direction direction, int value);
 }
