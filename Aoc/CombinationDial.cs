@@ -48,7 +48,7 @@ public class CombinationDial : ICombinationDial
 
 public class DialEventListner
 {
-    private List<DialEvent> _eventsList = new();
+    private readonly List<DialEvent> _eventsList = new();
 
     public void TrackEvent(Direction direction, int ticks, int value)
     {
