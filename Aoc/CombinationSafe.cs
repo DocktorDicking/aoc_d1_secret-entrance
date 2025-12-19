@@ -13,9 +13,31 @@ public class CombinationSafe : ICombinationSafe
         _turns = [];
     }
     
-    public CombinationSafe AddDialTurn(Direction direction, int ticks)
+    public void AddDialTurn(Direction direction, int ticks)
     {
         _turns.Add((direction, ticks));
+    }
+    
+    public CombinationSafe AddDialTurnFromFile(string filepath)
+    {
+        if (!File.Exists(filepath)) throw new FileNotFoundException("File not found", filepath);
+        
+        foreach (string line in File.ReadAllLines(filepath))
+        {
+            char directionChar = line[0];
+            Direction direction = MapDirection(directionChar);
+            if (int.TryParse(line[1..], out int ticks))
+            {
+                AddDialTurn(direction, ticks);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Added turn: {direction} {ticks}");
+                continue;
+            }
+            
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"Unable to parse line: {line}");
+        }
+
         return this;
     }
 
@@ -28,4 +50,11 @@ public class CombinationSafe : ICombinationSafe
     { 
         return _dial.ReadEvents();
     }
+    
+    private static Direction MapDirection(char direction) => direction switch
+    {
+        'L' => Direction.Left,
+        'R' => Direction.Right,
+        _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+    };
 }

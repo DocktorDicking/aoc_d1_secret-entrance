@@ -2,7 +2,8 @@ namespace Aoc;
 
 public interface ICombinationSafe
 {
-    CombinationSafe AddDialTurn(Direction direction, int ticks);
+    CombinationSafe AddDialTurnFromFile(string filepath);
+    void AddDialTurn(Direction direction, int ticks);
     List<string> GetStatistics();
     void Run();
 }
