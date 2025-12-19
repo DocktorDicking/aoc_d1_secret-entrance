@@ -48,7 +48,7 @@ public class CombinationDial : ICombinationDial
 
 public class DialEventListner
 {
-    private readonly List<DialEvent> _eventsList = new();
+    private readonly List<DialEvent> _eventsList= [];
 
     public void TrackEvent(Direction direction, int ticks, int value)
     {
@@ -72,8 +72,15 @@ public class DialEventListner
         {
             lines.Add($"The Dial is rotated {dialEvent.Direction} {dialEvent.Ticks} to point at: {dialEvent.Value}.");
         }
-
+        
+        lines.Add(PrintPassword());
         return lines;
+    }
+
+    private string PrintPassword()
+    {
+        var amount = _eventsList.FindAll(e => e.Value == 0).Count;
+        return $"The password is: {amount}";
     }
 }
 
