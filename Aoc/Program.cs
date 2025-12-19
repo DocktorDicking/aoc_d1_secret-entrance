@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 var services = new ServiceCollection();
 
 // Register services
-services.AddSingleton<CombinationSafe>();
+services.AddSingleton<ICombinationSafe, CombinationSafe>();
 services.AddTransient<App>();
 
 using var provider = services.BuildServiceProvider();
