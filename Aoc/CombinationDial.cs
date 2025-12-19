@@ -6,16 +6,18 @@ public class CombinationDial : ICombinationDial
     private int MaxValue { get; set; }
     private readonly int _minValue = 0;
     private int _currentValue;
-    
+    private readonly int _startValue;
+
     public CombinationDial(int maxValue, int startValue)
     {
         MaxValue = maxValue;
         _currentValue = startValue;
+        _startValue = startValue;
     }
 
     public List<string> ReadEvents()
     {
-        return dialEventListner.PrintEvents();
+        return dialEventListner.PrintEvents(_startValue);
     }
     
     public void TurnDial(Direction direction, int ticks)
@@ -40,7 +42,7 @@ public class CombinationDial : ICombinationDial
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
-        dialEventListner.TrackEvent(direction, _currentValue, _minValue, MaxValue);
+        dialEventListner.TrackEvent(direction, ticks, _currentValue);
     }
 }
 
@@ -48,25 +50,27 @@ public class DialEventListner
 {
     private List<DialEvent> _eventsList = new();
 
-    public void TrackEvent(Direction direction, int ticks, int startValue, int endValue)
+    public void TrackEvent(Direction direction, int ticks, int value)
     {
         _eventsList.Add(
             new DialEvent
             {
                 Direction = direction, 
                 Ticks = ticks, 
-                StartValue = startValue, 
-                EndValue = endValue
+                Value = value
             });
     }
 
-    public List<string> PrintEvents()
+    public List<string> PrintEvents(int startValue)
     {
-        var lines = new List<string>(_eventsList.Count);
+        var lines = new List<string>(_eventsList.Count)
+        {
+            $"The Dial starts by pointing at {startValue}."
+        };
 
         foreach (var dialEvent in _eventsList)
         {
-            lines.Add($"Direction: {dialEvent.Direction}, Target: {dialEvent.Ticks}, StartValue: {dialEvent.StartValue}, EndValue: {dialEvent.EndValue}");
+            lines.Add($"The Dial is rotated {dialEvent.Direction} {dialEvent.Ticks} to point at: {dialEvent.Value}.");
         }
 
         return lines;
@@ -77,7 +81,5 @@ internal class DialEvent
 {
     public Direction Direction { get; set; }
     public int Ticks { get; set; }
-    public int StartValue { get; set; }
-    public int EndValue { get; set; }
-    public int Turns { get; set; }
+    public int Value { get; set; }
 }
