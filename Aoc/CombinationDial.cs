@@ -2,7 +2,7 @@ namespace Aoc;
 
 public class CombinationDial : ICombinationDial
 {
-    public DialEventListner dialEventListner = new();
+    private readonly DialEventListner _dialEventListner = new();
     private int MaxValue { get; set; }
     private readonly int _minValue = 0;
     private int _currentValue;
@@ -17,7 +17,7 @@ public class CombinationDial : ICombinationDial
 
     public List<string> ReadEvents()
     {
-        return dialEventListner.PrintEvents(_startValue);
+        return _dialEventListner.PrintEvents(_startValue);
     }
     
     public void TurnDial(Direction direction, int ticks)
@@ -42,7 +42,7 @@ public class CombinationDial : ICombinationDial
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
-        dialEventListner.TrackEvent(direction, ticks, _currentValue);
+        _dialEventListner.TrackEvent(direction, ticks, _currentValue);
     }
 }
 
@@ -74,7 +74,7 @@ public class DialEventListner
 
     private string PrintPassword()
     {
-        var amount = _eventsList.FindAll(e => e.Value == 0).Count;
+        int amount = _eventsList.FindAll(e => e.Value == 0).Count;
         return $"The password is: {amount}";
     }
 }

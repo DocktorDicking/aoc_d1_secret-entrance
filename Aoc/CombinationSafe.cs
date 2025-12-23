@@ -3,13 +3,13 @@ namespace Aoc;
 public class CombinationSafe : ICombinationSafe
 {
     private readonly CombinationDial _dial;
-    private readonly int _maxValue = 99;
-    private readonly int _startValue = 50;
+    private const int MaxValue = 99;
+    private const int StartValue = 50;
     private readonly List<(Direction Direction, int Ticks)> _turns;
 
     public CombinationSafe()
     {
-        _dial = new CombinationDial(_maxValue, _startValue);
+        _dial = new CombinationDial(MaxValue, StartValue);
         _turns = [];
     }
     
