@@ -41,8 +41,11 @@ public class CombinationDial : ICombinationDial
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
+            // Part 2
+            _dialEventListner.TrackEvent(direction, ticks, _currentValue);
         }
-        _dialEventListner.TrackEvent(direction, ticks, _currentValue);
+        // Part 1
+        // _dialEventListner.TrackEvent(direction, ticks, _currentValue);
     }
 }
 
