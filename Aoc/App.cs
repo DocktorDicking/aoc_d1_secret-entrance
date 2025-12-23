@@ -1,4 +1,4 @@
-using Aoc;
+namespace Aoc;
 
 public sealed class App
 {
