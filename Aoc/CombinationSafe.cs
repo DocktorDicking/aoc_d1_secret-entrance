@@ -29,8 +29,6 @@ public class CombinationSafe : ICombinationSafe
             if (int.TryParse(line[1..], out int ticks))
             {
                 AddDialTurn(direction, ticks);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Added turn: {direction} {ticks}");
                 continue;
             }
             
@@ -38,6 +36,8 @@ public class CombinationSafe : ICombinationSafe
             Console.WriteLine($"Unable to parse line: {line}");
         }
 
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"Added { _turns.Count } dial turns from file: {filepath}");
         return this;
     }
 
