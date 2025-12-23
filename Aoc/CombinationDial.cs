@@ -55,13 +55,7 @@ public class DialEventListner
 
     public void TrackEvent(Direction direction, int ticks, int value)
     {
-        _eventsList.Add(
-            new DialEvent
-            {
-                Direction = direction, 
-                Ticks = ticks, 
-                Value = value
-            });
+        _eventsList.Add(new DialEvent(direction, ticks, value));
     }
 
     public List<string> PrintEvents(int startValue)
@@ -82,9 +76,10 @@ public class DialEventListner
     }
 }
 
-internal class DialEvent
-{
-    public Direction Direction { get; set; }
-    public int Ticks { get; set; }
-    public int Value { get; set; }
-}
+/* Fun Fact:
+ * Record overrides the == by default such that two records are equal if all their properties are equal.
+ * Classes will check the memory address of the object when doing ==.
+ * Records can be printed out of the box.
+ * Records have less boilerplate code than classes.
+ */
+internal record DialEvent(Direction Direction, int Ticks, int Value);
