@@ -1,7 +1,12 @@
-# aoc_d1_secret-entrance
+# Advend of coding 2025
 https://adventofcode.com/2025/day/1
 
-# Day 1: Secret Entrance
+This project is my personal participation in Advent of Code 2025 🎄
+I’m doing this for fun and as a hobby, using it as a way to learn, experiment, and sharpen my coding skills, while also sharing my experience and progress on my GitHub profile.
+
+---
+
+## Day 1: Secret Entrance
 
 The Elves have good news and bad news.
 
@@ -35,7 +40,7 @@ For example, suppose the attached document contained the following rotations: (s
 
 ---
 
-## Part 2 
+### Part 2 
 
 You're sure that's the right password, but the door won't open. You knock, but nobody answers. You build a snowman while you think.
 
