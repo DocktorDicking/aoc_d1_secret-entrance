@@ -3,11 +3,8 @@ using Aoc;
 using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection();
-
-// Register services
 services.AddSingleton<ICombinationSafe, CombinationSafe>();
 services.AddTransient<App>();
 
-using var provider = services.BuildServiceProvider();
-
+using ServiceProvider provider = services.BuildServiceProvider();
 provider.GetRequiredService<App>().Run(args);
