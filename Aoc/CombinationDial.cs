@@ -67,12 +67,7 @@ public class DialEventListner
         {
             $"The Dial starts by pointing at {startValue}."
         };
-
-        foreach (var dialEvent in _eventsList)
-        {
-            lines.Add($"The Dial is rotated {dialEvent.Direction} {dialEvent.Ticks} to point at: {dialEvent.Value}.");
-        }
-        
+        lines.AddRange(_eventsList.Select(dialEvent => $"The Dial is rotated {dialEvent.Direction} {dialEvent.Ticks} to point at: {dialEvent.Value}."));
         lines.Add(PrintPassword());
         return lines;
     }
